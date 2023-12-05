@@ -1,5 +1,7 @@
 "use client"
 import React, { useState } from "react"
+import Header from './components/Header'
+import Footer from './components/Footer'
 
 export default function Home() {
   const [isOpenPokedex, setIsOpenPokedex] = useState(false)
@@ -22,13 +24,15 @@ export default function Home() {
         </button>
       </div>
     ) : (
-      <div className="relative text-black text-bold text-5xl">
+      <div className="relative">
         <img className="w-full" src="/image/Pokedex_haut_rogner.png" alt="pokedex top" />
-        <button onClick={closePokedex} className="rounded-full hover:text-gray-600 py-12 px-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[430px]">
+        <button onClick={closePokedex} className="text-5xl rounded-full hover:text-gray-600 py-12 px-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[430px]">
           {"Close"}
         </button>
-        <div className="h-[33rem]">
-          <p className="text-white">Test</p>
+        <div className="h-[33rem] bg-gradient-to-b from-blue-200 via-blue-600 to-blue-200 rounded-3xl">
+          <Header />
+          <p className="text-center">Test</p>
+          <Footer />
         </div>
         <img className="w-full" src="/image/Pokedex_bas_rogner.png" alt="pokedex bottom" />
       </div>
