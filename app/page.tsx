@@ -43,7 +43,7 @@ export default function Home() {
     setclickOnPokemon(true)
   }
 
-  const handleReturnDisplayCard = (query : string) => {
+  const handleReturnDisplayCard = () => {
     setclickOnPokemon(false)
   }
 
@@ -60,7 +60,7 @@ export default function Home() {
   return (
     <main className="flex items-center justify-center bg-black">
     {isOpenPokedex == false ? (
-      <div className="relative text-black text-bold text-5xl">
+      <div className="relative text-black font-bold text-5xl">
         <img className="w-full" src="/image/Pokedex_ferme.png" alt="pokedex close" />
         <button onClick={openPokedex} className="rounded-full hover:text-gray-600 py-20 px-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[130px]">
           {"Open"}
@@ -74,8 +74,15 @@ export default function Home() {
         </button>
         <div className="w-full h-[33rem] bg-gradient-to-b from-blue-200 via-blue-600 to-blue-200 rounded-3xl">
           <Header />
-          <div className={"max-w-[35rem] max-h-[21rem] m-4 overflow-y-auto" + (showPokemonPage ? "" : " grid grid-cols-6 gap-1")}>
+          <div className={"max-w-[35rem] m-4 overflow-y-auto " + (showPokemonPage ? "max-h-[28rem] " : "max-h-[21rem] grid grid-cols-6 gap-2")}>
             {showPokemonPage ? <PokemonPage key={0} item = {dataPokemonSingle} onReturnDisplayCard = {handleReturnDisplayCard}  /> : cardsPokemon }
+          </div>
+          <div className={"w-[35rem]  " + (showPokemonPage ? "" : "h-24")}>
+            {showPokemonPage ? "" : <div className="px-2 flex justify-between">
+              <button>ListeDéroulanteGénération</button>
+              <button>ListeDéroulanteType1</button>
+              <button>ListeDéroulanteType2</button>
+                </div>}
           </div>
           <Footer />
         </div>

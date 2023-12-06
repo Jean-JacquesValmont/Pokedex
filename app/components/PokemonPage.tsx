@@ -1,41 +1,48 @@
 import React from 'react'
+import { ImCross } from "react-icons/im";
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 
 const PokemonPage = (props : any) => {
 
     const handleReturnDisplayCard = () => {
-        props.onReturnDisplayCard("pokemon/generation/1")
+        props.onReturnDisplayCard()
         }
 
   return (
     <div className="flex flex-col">
-        <div className="flex justify-between items-center m-4 text-4xl text-bold">
+        <div className="flex justify-between items-center m-4 text-4xl font-bold">
             <p>{props.item.id}</p>
             <h1>{props.item.name}</h1>
-            <button onClick={handleReturnDisplayCard} className='bg-red-700 cursor-pointer hover:text-white'>
-                X
+            <button onClick={handleReturnDisplayCard} className='cursor-pointer hover:text-white'>
+                <ImCross />
             </button>
         </div>
         <div className="flex">
             <div className="flex flex-col text-[18px]">
-            <img className="w-52 h-52" src={props.item.image}/>
-            <h2>Type: {props.item.apiTypes[0]?.name} {props.item.apiTypes[1]?.name && ` / ${props.item.apiTypes[1]?.name}`}</h2>
-            <p>Evolue en : {props.item.apiEvolutions[0]?.name == "none" || props.item.apiEvolutions[0]?.name == undefined ? "Evolution final" : props.item.apiEvolutions[0]?.name}</p>
+                <img className="w-52 h-52" src={props.item.image}/>
+                <h2> <span className="font-bold">Type:</span> {props.item.apiTypes[0]?.name} {props.item.apiTypes[1]?.name && ` / ${props.item.apiTypes[1]?.name}`}</h2>
+                <p><span className="font-bold">Evolue en:</span> {props.item.apiEvolutions[0]?.name == "none" || props.item.apiEvolutions[0]?.name == undefined ? "Evolution final" : props.item.apiEvolutions[0]?.name}</p>
             </div>
             <div className="">
-                <h2 className="text-center text-2xl" >Statistics</h2>
-                <div className="flex p-4 text-[18px]">
+                <h2 className="text-center text-3xl p-2 font-bold" >Statistics</h2>
+                <div className="flex p-4 text-[18px] border-2 border-cyan-200 rounded-md">
                     <div className="px-4">
-                        <p>HP: {props.item.stats.HP}</p>
-                        <p>Attack: {props.item.stats.attack}</p>
-                        <p>Defense: {props.item.stats.defense}</p>
+                        <p><span className="font-bold">HP:</span> {props.item.stats.HP}</p>
+                        <p><span className="font-bold">Attack:</span> {props.item.stats.attack}</p>
+                        <p><span className="font-bold">Defense:</span> {props.item.stats.defense}</p>
                     </div>
                     <div className="px-4">
-                        <p>Speed: {props.item.stats.speed}</p>
-                        <p>Spe att: {props.item.stats.special_attack}</p>
-                        <p>Spe def: {props.item.stats.special_defense}</p>
+                        <p><span className="font-bold">Speed:</span> {props.item.stats.speed}</p>
+                        <p><span className="font-bold">Spe att:</span> {props.item.stats.special_attack}</p>
+                        <p><span className="font-bold">Spe def:</span> {props.item.stats.special_defense}</p>
                     </div>
                 </div>
             </div>
+        </div>
+        <div className="flex justify-between items-center m-4 text-4xl text-bold ">
+            <button className="cursor-pointer hover:text-white"><IoIosArrowBack /></button>
+            <button className="cursor-pointer hover:text-white"><IoIosArrowForward /></button>
         </div>
     </div>
   )
