@@ -1,9 +1,6 @@
 import React from 'react'
 
 const PokemonPage = (props : any) => {
-    console.log("props: ", props)
-    console.log("props.item: ", props.item)
-    console.log("props.item.name: ", props.item.name)
 
     const handleReturnDisplayCard = () => {
         props.onReturnDisplayCard("pokemon/generation/1")

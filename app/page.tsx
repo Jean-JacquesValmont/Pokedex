@@ -10,9 +10,10 @@ export default function Home() {
   const [isOpenPokedex, setIsOpenPokedex] = useState(false)
   const [clickOnPokemon, setclickOnPokemon] = useState(false)
   const [showPokemonPage, setShowPokemonPage] = useState(false)
-  const [query, setQuery] = useState("pokemon/generation/1")
-  const dataPokemon = useFetch("https://pokebuildapi.fr/api/v1/" + query, query)
-  let cardsPokemon : any = []
+  const [querySingle, setQuerySingle] = useState("pokemon/1")
+  const [querySeveral, setQuerySeveral] = useState("pokemon/generation/1")
+  const dataPokemonSingle = useFetch("https://pokebuildapi.fr/api/v1/" + querySingle, querySingle)
+  const dataPokemonSeveral = useFetch("https://pokebuildapi.fr/api/v1/" + querySeveral, querySeveral)
 
   const openPokedex = () => {
     setIsOpenPokedex(true)
@@ -37,17 +38,15 @@ export default function Home() {
   }, [clickOnPokemon]); // Effectue l'effet chaque fois que clickOnPokemon change
 
   const handleTakeIDPokemon = (id : string) => {
-    setQuery("pokemon/" + id)
+    setQuerySingle("pokemon/" + id)
     setclickOnPokemon(true)
   }
 
   const handleReturnDisplayCard = (query : string) => {
-    setQuery(query)
     setclickOnPokemon(false)
   }
 
-  if (clickOnPokemon == false) {
-    cardsPokemon = dataPokemon.map((item,i) =>{
+  const cardsPokemon = dataPokemonSeveral.map((item,i) =>{
     return(
       <Card
         key={i}
@@ -55,7 +54,7 @@ export default function Home() {
         onTakeID = {handleTakeIDPokemon}
       />
     )
-  })}
+  })
 
   return (
     <main className="flex items-center justify-center bg-black">
@@ -75,7 +74,7 @@ export default function Home() {
         <div className="w-full h-[33rem] bg-gradient-to-b from-blue-200 via-blue-600 to-blue-200 rounded-3xl">
           <Header />
           <div className="max-w-[35rem] max-h-[21rem] m-4 grid grid-cols-6 gap-1 overflow-y-auto">
-            {showPokemonPage ? <PokemonPage key={0} item = {dataPokemon} onReturnDisplayCard = {handleReturnDisplayCard}  /> : cardsPokemon }
+            {showPokemonPage ? <PokemonPage key={0} item = {dataPokemonSingle} onReturnDisplayCard = {handleReturnDisplayCard}  /> : cardsPokemon }
           </div>
           <Footer />
         </div>
