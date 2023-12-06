@@ -25,10 +25,11 @@ export default function Home() {
 
   useEffect(() => {
     // Utilisez un effet pour déclencher l'affichage de PokemonPage après le délai
+    // Laisse le temps à l'autre pas de charger
     if (clickOnPokemon) {
       const timeoutId = setTimeout(() => {
         setShowPokemonPage(true);
-      }, 1000); // Délai en millisecondes (1 seconde dans cet exemple)
+      }, 200); // Délai en millisecondes
 
       // Nettoyez le timeout si le composant est démonté avant l'expiration du délai
       return () => clearTimeout(timeoutId);
@@ -73,7 +74,7 @@ export default function Home() {
         </button>
         <div className="w-full h-[33rem] bg-gradient-to-b from-blue-200 via-blue-600 to-blue-200 rounded-3xl">
           <Header />
-          <div className="max-w-[35rem] max-h-[21rem] m-4 grid grid-cols-6 gap-1 overflow-y-auto">
+          <div className={"max-w-[35rem] max-h-[21rem] m-4 overflow-y-auto" + (showPokemonPage ? "" : " grid grid-cols-6 gap-1")}>
             {showPokemonPage ? <PokemonPage key={0} item = {dataPokemonSingle} onReturnDisplayCard = {handleReturnDisplayCard}  /> : cardsPokemon }
           </div>
           <Footer />
