@@ -8,6 +8,14 @@ const PokemonPage = (props : any) => {
     const handleReturnDisplayCard = () => {
         props.onReturnDisplayCard()
         }
+    
+    const handleNextPokemon = () => {
+        props.nextPokemon(props.item.id)
+        }
+    
+    const handlePreviousPokemon = () => {
+        props.previousPokemon(props.item.id)
+        }
 
   return (
     <div className="flex flex-col">
@@ -41,8 +49,8 @@ const PokemonPage = (props : any) => {
             </div>
         </div>
         <div className="flex justify-between items-center m-4 text-4xl text-bold ">
-            <button className="cursor-pointer hover:text-white"><IoIosArrowBack /></button>
-            <button className="cursor-pointer hover:text-white"><IoIosArrowForward /></button>
+            <button onClick={handlePreviousPokemon} className="cursor-pointer hover:text-white"><IoIosArrowBack /></button>
+            <button onClick={handleNextPokemon} className="cursor-pointer hover:text-white"><IoIosArrowForward /></button>
         </div>
     </div>
   )

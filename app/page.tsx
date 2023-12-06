@@ -47,6 +47,19 @@ export default function Home() {
     setclickOnPokemon(false)
   }
 
+  const handleNextPokemon = (id : number) => {
+    if (id < 898) {
+    setQuerySingle("pokemon/" + String(id + 1))
+    }
+  }
+
+  const handlePreviousPokemon = (id : number) => {
+    if (id > 1) {
+      setQuerySingle("pokemon/" + String(id -1))
+    }
+    
+  }
+
   const cardsPokemon = dataPokemonSeveral.map((item,i) =>{
     return(
       <Card
@@ -75,7 +88,14 @@ export default function Home() {
         <div className="w-full h-[33rem] bg-gradient-to-b from-blue-200 via-blue-600 to-blue-200 rounded-3xl">
           <Header />
           <div className={"max-w-[35rem] m-4 overflow-y-auto " + (showPokemonPage ? "max-h-[28rem] " : "max-h-[21rem] grid grid-cols-6 gap-2")}>
-            {showPokemonPage ? <PokemonPage key={0} item = {dataPokemonSingle} onReturnDisplayCard = {handleReturnDisplayCard}  /> : cardsPokemon }
+            {showPokemonPage ? 
+              <PokemonPage key={0} 
+              item = {dataPokemonSingle} 
+              onReturnDisplayCard = {handleReturnDisplayCard}
+              nextPokemon = {handleNextPokemon}
+              previousPokemon = {handlePreviousPokemon}
+              /> 
+              : cardsPokemon }
           </div>
           <div className={"w-[35rem]  " + (showPokemonPage ? "" : "h-24")}>
             {showPokemonPage ? "" : <div className="px-2 flex justify-between">
