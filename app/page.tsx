@@ -98,18 +98,18 @@ export default function Home() {
   ))
 
   return (
-    <main className="flex items-center justify-center bg-black">
+    <main className="w-auto h-[45rem] flex items-center justify-center">
     {isOpenPokedex == false ? (
-      <div className="relative text-black font-bold text-5xl">
-        <Image className="w-full" src="/image/Pokedex_ferme.png" alt="pokedex close" />
-        <button onClick={openPokedex} className="rounded-full hover:text-gray-600 py-20 px-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[130px]">
+      <div className=" relative text-black font-bold text-4xl">
+        <Image className="w-full" src="/image/Pokedex_ferme.png" alt="pokedex close" width={1000} height={1200}  />
+        <button onClick={openPokedex} className="rounded-full hover:text-gray-600 py-20 px-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[115px]">
           {"Open"}
         </button>
       </div>
     ) : (
       <div className="relative">
-        <Image className="w-full" src="/image/Pokedex_haut_rogner.png" alt="pokedex top" />
-        <button onClick={closePokedex} className="text-5xl rounded-full hover:text-gray-600 py-12 px-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[430px]">
+        <Image className="w-full" src="/image/Pokedex_haut_rogner.png" alt="pokedex top" width={200} height={500} />
+        <button onClick={closePokedex} className="text-5xl rounded-full hover:text-gray-600 py-10 px-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[410px]">
           {"Close"}
         </button>
         <div className="w-full h-[33rem] bg-gradient-to-b from-blue-200 via-blue-600 to-blue-200 rounded-3xl">
@@ -203,7 +203,7 @@ export default function Home() {
           </div>
           <Footer />
         </div>
-        <Image className="w-full" src="/image/Pokedex_bas_rogner.png" alt="pokedex bottom" />
+        <Image className="w-full" src="/image/Pokedex_bas_rogner.png" alt="pokedex bottom" width={200} height={500} />
       </div>
     )}
   </main>

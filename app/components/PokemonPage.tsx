@@ -56,7 +56,7 @@ const PokemonPage = (props : PokemonPageProps) => {
         </div>
         <div className="flex">
             <div className="flex flex-col text-[18px]">
-                <Image className="w-52 h-52" src={props.item.image} alt={props.item.name}/>
+                <Image className="w-52 h-52" src={props.item.image} alt={props.item.name} width={200} height={500}/>
                 <h2> <span className="font-bold">Type:</span> {props.item.apiTypes[0]?.name} {props.item.apiTypes[1]?.name && ` / ${props.item.apiTypes[1]?.name}`}</h2>
                 <p><span className="font-bold">Evolution de:</span> {props.item.apiPreEvolution.name == "none" || props.item.apiPreEvolution.name == undefined ? "Aucun" : props.item.apiPreEvolution.name}</p>
                 <p><span className="font-bold">Evolue en:</span> {props.item.apiEvolutions[0]?.name == "none" || props.item.apiEvolutions[0]?.name == undefined ? "Evolution final" : props.item.apiEvolutions[0]?.name}</p>

@@ -21,7 +21,7 @@ const Card = (props : CardProps) => {
 
   return (
     <div onClick={handleTakeID} className="cursor-pointer text-center shadow-md border-cyan-200 border-2 rounded-lg transform hover:scale-105 transition-transform">
-        <Image src={props.item.image} alt={"image de " + props.item.name} />
+        <Image src={props.item.image} alt={"image de " + props.item.name} width={200} height={500}/>
         <h1 className="font-bold text-sm">{props.item.name}</h1>
     </div>
   )
