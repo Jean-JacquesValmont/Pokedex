@@ -11,6 +11,7 @@ export default function Home() {
   const [clickOnPokemon, setclickOnPokemon] = useState(false)
   const [showPokemonPage, setShowPokemonPage] = useState(false)
   const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue2, setSelectedValue2] = useState('');
   const [querySingle, setQuerySingle] = useState("pokemon/1")
   const [querySeveral, setQuerySeveral] = useState("pokemon")
   const dataPokemonSingle = useFetch("https://pokebuildapi.fr/api/v1/" + querySingle, querySingle)
@@ -65,7 +66,17 @@ export default function Home() {
   // Fonction pour gérer le changement de sélection
   const handleSelectChange = (event : any) => {
     setSelectedValue(event.target.value)
+    setSelectedValue2("")
     setQuerySeveral(event.target.value)
+  };
+
+  // Fonction pour gérer le changement de sélection pour le deuxième type
+  const handleSelectChangeType = (event : any) => {
+    setSelectedValue2(event.target.value)
+    if (querySeveral.substring(0,12) == "pokemon/type") {
+      const newQuerySeveral = selectedValue.slice(0, 12) + "s" + selectedValue.slice(12, 21)
+      setQuerySeveral(newQuerySeveral + event.target.value)
+    }
   };
 
   const cardsPokemon = dataPokemonSeveral.map((item,i) =>{
@@ -107,7 +118,7 @@ export default function Home() {
           </div>
           <div className={"w-[35rem]  " + (showPokemonPage ? "" : "h-24")}>
             {showPokemonPage ? "" 
-            : <div className="px-2 flex justify-between">
+            : <div className="px-2 flex justify-between text-[13px] text-center">
                 <div>
                   <h2>Sélectionnez une génération :</h2>
                   <select value={selectedValue} onChange={handleSelectChange}>
@@ -144,6 +155,30 @@ export default function Home() {
                     <option value="pokemon/type/Dragon">Dragon</option>
                     <option value="pokemon/type/Ténébres">Ténébres</option>
                     <option value="pokemon/type/Fée">Fée</option>
+                  </select>
+                </div>
+                <div>
+                  <h2>Sélectionnez un second type :</h2>
+                  <select value={selectedValue2} onChange={handleSelectChangeType}>
+                    <option value=""></option>
+                    <option value="/Normal">Normal</option>
+                    <option value="/Combat">Combat</option>
+                    <option value="/Vol">Vol</option>
+                    <option value="/Poison">Poison</option>
+                    <option value="/Sol">Sol</option>
+                    <option value="/Roche">Roche</option>
+                    <option value="/Insecte">Insecte</option>
+                    <option value="/Spectre">Spectre</option>
+                    <option value="/Acier">Acier</option>
+                    <option value="/Feu">Feu</option>
+                    <option value="/Eau">Eau</option>
+                    <option value="/Plante">Plante</option>
+                    <option value="/Électrik">Électrik</option>
+                    <option value="/Psy">Psy</option>
+                    <option value="/Glace">Glace</option>
+                    <option value="/Dragon">Dragon</option>
+                    <option value="/Ténébres">Ténébres</option>
+                    <option value="/Fée">Fée</option>
                   </select>
                 </div>
               </div>}
