@@ -25,7 +25,7 @@ type PokemonItem = {
 
 type PokemonPageProps = {
     key: number | string
-    item: PokemonItem
+    item: any
     onReturnDisplayCard: () => void
     nextPokemon: (id: number) => void
     previousPokemon: (id: number) => void
