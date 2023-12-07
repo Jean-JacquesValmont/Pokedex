@@ -10,8 +10,9 @@ export default function Home() {
   const [isOpenPokedex, setIsOpenPokedex] = useState(false)
   const [clickOnPokemon, setclickOnPokemon] = useState(false)
   const [showPokemonPage, setShowPokemonPage] = useState(false)
+  const [selectedValue, setSelectedValue] = useState('');
   const [querySingle, setQuerySingle] = useState("pokemon/1")
-  const [querySeveral, setQuerySeveral] = useState("pokemon/generation/1")
+  const [querySeveral, setQuerySeveral] = useState("pokemon")
   const dataPokemonSingle = useFetch("https://pokebuildapi.fr/api/v1/" + querySingle, querySingle)
   const dataPokemonSeveral = useFetch("https://pokebuildapi.fr/api/v1/" + querySeveral, querySeveral)
 
@@ -21,6 +22,7 @@ export default function Home() {
 
   const closePokedex = () => {
     setIsOpenPokedex(false)
+    setclickOnPokemon(false)
   }
 
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function Home() {
     if (clickOnPokemon) {
       const timeoutId = setTimeout(() => {
         setShowPokemonPage(true);
-      }, 200); // Délai en millisecondes
+      }, 300); // Délai en millisecondes
 
       // Nettoyez le timeout si le composant est démonté avant l'expiration du délai
       return () => clearTimeout(timeoutId);
@@ -59,6 +61,12 @@ export default function Home() {
     }
     
   }
+
+  // Fonction pour gérer le changement de sélection
+  const handleSelectChange = (event : any) => {
+    setSelectedValue(event.target.value)
+    setQuerySeveral(event.target.value)
+  };
 
   const cardsPokemon = dataPokemonSeveral.map((item,i) =>{
     return(
@@ -98,11 +106,47 @@ export default function Home() {
               : cardsPokemon }
           </div>
           <div className={"w-[35rem]  " + (showPokemonPage ? "" : "h-24")}>
-            {showPokemonPage ? "" : <div className="px-2 flex justify-between">
-              <button>ListeDéroulanteGénération</button>
-              <button>ListeDéroulanteType1</button>
-              <button>ListeDéroulanteType2</button>
-                </div>}
+            {showPokemonPage ? "" 
+            : <div className="px-2 flex justify-between">
+                <div>
+                  <h2>Sélectionnez une génération :</h2>
+                  <select value={selectedValue} onChange={handleSelectChange}>
+                    <option value="pokemon">Tous les pokémons</option>
+                    <option value="pokemon/generation/1">Géneration 1</option>
+                    <option value="pokemon/generation/2">Géneration 2</option>
+                    <option value="pokemon/generation/3">Géneration 3</option>
+                    <option value="pokemon/generation/4">Géneration 4</option>
+                    <option value="pokemon/generation/5">Géneration 5</option>
+                    <option value="pokemon/generation/6">Géneration 6</option>
+                    <option value="pokemon/generation/7">Géneration 7</option>
+                    <option value="pokemon/generation/8">Géneration 8</option>
+                  </select>
+                </div>
+                <div>
+                  <h2>Sélectionnez un type :</h2>
+                  <select value={selectedValue} onChange={handleSelectChange}>
+                    <option value="pokemon">Tous les types</option>
+                    <option value="pokemon/type/Normal">Normal</option>
+                    <option value="pokemon/type/Combat">Combat</option>
+                    <option value="pokemon/type/Vol">Vol</option>
+                    <option value="pokemon/type/Poison">Poison</option>
+                    <option value="pokemon/type/Sol">Sol</option>
+                    <option value="pokemon/type/Roche">Roche</option>
+                    <option value="pokemon/type/Insecte">Insecte</option>
+                    <option value="pokemon/type/Spectre">Spectre</option>
+                    <option value="pokemon/type/Acier">Acier</option>
+                    <option value="pokemon/type/Feu">Feu</option>
+                    <option value="pokemon/type/Eau">Eau</option>
+                    <option value="pokemon/type/Plante">Plante</option>
+                    <option value="pokemon/type/Électrik">Électrik</option>
+                    <option value="pokemon/type/Psy">Psy</option>
+                    <option value="pokemon/type/Glace">Glace</option>
+                    <option value="pokemon/type/Dragon">Dragon</option>
+                    <option value="pokemon/type/Ténébres">Ténébres</option>
+                    <option value="pokemon/type/Fée">Fée</option>
+                  </select>
+                </div>
+              </div>}
           </div>
           <Footer />
         </div>
