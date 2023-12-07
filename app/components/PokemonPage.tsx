@@ -1,7 +1,8 @@
-import React from 'react'
+import React from "react"
 import { ImCross } from "react-icons/im";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
+import Image from 'next/image';
 
 type Stats = {
     HP: number;
@@ -49,13 +50,13 @@ const PokemonPage = (props : PokemonPageProps) => {
         <div className="flex justify-between items-center m-4 text-4xl font-bold">
             <p>{props.item.id}</p>
             <h1>{props.item.name}</h1>
-            <button onClick={handleReturnDisplayCard} className='cursor-pointer hover:text-white'>
+            <button onClick={handleReturnDisplayCard} className="cursor-pointer hover:text-white">
                 <ImCross />
             </button>
         </div>
         <div className="flex">
             <div className="flex flex-col text-[18px]">
-                <img className="w-52 h-52" src={props.item.image}/>
+                <Image className="w-52 h-52" src={props.item.image} alt={props.item.name}/>
                 <h2> <span className="font-bold">Type:</span> {props.item.apiTypes[0]?.name} {props.item.apiTypes[1]?.name && ` / ${props.item.apiTypes[1]?.name}`}</h2>
                 <p><span className="font-bold">Evolution de:</span> {props.item.apiPreEvolution.name == "none" || props.item.apiPreEvolution.name == undefined ? "Aucun" : props.item.apiPreEvolution.name}</p>
                 <p><span className="font-bold">Evolue en:</span> {props.item.apiEvolutions[0]?.name == "none" || props.item.apiEvolutions[0]?.name == undefined ? "Evolution final" : props.item.apiEvolutions[0]?.name}</p>

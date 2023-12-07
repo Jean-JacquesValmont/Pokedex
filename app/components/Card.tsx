@@ -1,4 +1,5 @@
-import React from 'react'
+import React from "react"
+import Image from 'next/image';
 
 type PokemonItem = {
   id: number;
@@ -20,7 +21,7 @@ const Card = (props : CardProps) => {
 
   return (
     <div onClick={handleTakeID} className="cursor-pointer text-center shadow-md border-cyan-200 border-2 rounded-lg transform hover:scale-105 transition-transform">
-        <img src={props.item.image} alt={"image de " + props.item.name} />
+        <Image src={props.item.image} alt={"image de " + props.item.name} />
         <h1 className="font-bold text-sm">{props.item.name}</h1>
     </div>
   )

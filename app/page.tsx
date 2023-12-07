@@ -1,18 +1,19 @@
 "use client"
 import React, { useState, useEffect } from "react"
-import Header from './components/Header'
-import Footer from './components/Footer'
-import useFetch from './CustomHooks/UseFetch'
+import Header from "./components/Header"
+import Footer from "./components/Footer"
+import useFetch from "./CustomHooks/UseFetch"
 import Card from "./components/Card"
 import PokemonPage from "./components/PokemonPage"
+import Image from 'next/image';
 
 export default function Home() {
   const [isOpenPokedex, setIsOpenPokedex] = useState<boolean>(false)
   const [clickOnPokemon, setclickOnPokemon] = useState<boolean>(false)
   const [showPokemonPage, setShowPokemonPage] = useState<boolean>(false)
-  const [selectedValue, setSelectedValue] = useState<string>('');
-  const [selectedValue2, setSelectedValue2] = useState<string>('');
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [selectedValue, setSelectedValue] = useState<string>("");
+  const [selectedValue2, setSelectedValue2] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [querySingle, setQuerySingle] = useState<string>("pokemon/1")
   const [querySeveral, setQuerySeveral] = useState<string>("pokemon")
   const dataPokemonSingle = useFetch("https://pokebuildapi.fr/api/v1/" + querySingle, querySingle)
@@ -100,14 +101,14 @@ export default function Home() {
     <main className="flex items-center justify-center bg-black">
     {isOpenPokedex == false ? (
       <div className="relative text-black font-bold text-5xl">
-        <img className="w-full" src="/image/Pokedex_ferme.png" alt="pokedex close" />
+        <Image className="w-full" src="/image/Pokedex_ferme.png" alt="pokedex close" />
         <button onClick={openPokedex} className="rounded-full hover:text-gray-600 py-20 px-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[130px]">
           {"Open"}
         </button>
       </div>
     ) : (
       <div className="relative">
-        <img className="w-full" src="/image/Pokedex_haut_rogner.png" alt="pokedex top" />
+        <Image className="w-full" src="/image/Pokedex_haut_rogner.png" alt="pokedex top" />
         <button onClick={closePokedex} className="text-5xl rounded-full hover:text-gray-600 py-12 px-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[430px]">
           {"Close"}
         </button>
@@ -202,7 +203,7 @@ export default function Home() {
           </div>
           <Footer />
         </div>
-        <img className="w-full" src="/image/Pokedex_bas_rogner.png" alt="pokedex bottom" />
+        <Image className="w-full" src="/image/Pokedex_bas_rogner.png" alt="pokedex bottom" />
       </div>
     )}
   </main>

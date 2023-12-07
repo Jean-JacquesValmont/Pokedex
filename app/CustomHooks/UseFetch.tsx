@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react"
 
 type PokemonType = {
   name: string;
@@ -36,12 +36,12 @@ const useFetch = (url : string, query : string) => {
         const data = await response.json();
         setDataFetch(data);
         } catch (error) {
-        console.error('Erreur lors de la récupération des données :', error);
+        console.error("Erreur lors de la récupération des données :", error);
         }
     };
 
     fetchData();
-    }, [query]);
+    }, [url, query]);
 
   return (
     dataFetch
