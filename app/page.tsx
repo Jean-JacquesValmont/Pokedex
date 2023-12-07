@@ -12,10 +12,13 @@ export default function Home() {
   const [showPokemonPage, setShowPokemonPage] = useState(false)
   const [selectedValue, setSelectedValue] = useState('');
   const [selectedValue2, setSelectedValue2] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const [querySingle, setQuerySingle] = useState("pokemon/1")
   const [querySeveral, setQuerySeveral] = useState("pokemon")
   const dataPokemonSingle = useFetch("https://pokebuildapi.fr/api/v1/" + querySingle, querySingle)
   const dataPokemonSeveral = useFetch("https://pokebuildapi.fr/api/v1/" + querySeveral, querySeveral)
+  const pathGeneration = "pokemon/generation/"
+  const pathType = "pokemon/type/"
 
   const openPokedex = () => {
     setIsOpenPokedex(true)
@@ -27,19 +30,16 @@ export default function Home() {
   }
 
   useEffect(() => {
-    // Utilisez un effet pour déclencher l'affichage de PokemonPage après le délai
-    // Laisse le temps à l'autre pas de charger
     if (clickOnPokemon) {
       const timeoutId = setTimeout(() => {
         setShowPokemonPage(true);
-      }, 300); // Délai en millisecondes
+      }, 300);
 
-      // Nettoyez le timeout si le composant est démonté avant l'expiration du délai
       return () => clearTimeout(timeoutId);
     }
-    // Réinitialisez l'état pour masquer PokemonPage
+
     setShowPokemonPage(false);
-  }, [clickOnPokemon]); // Effectue l'effet chaque fois que clickOnPokemon change
+  }, [clickOnPokemon]);
 
   const handleTakeIDPokemon = (id : string) => {
     setQuerySingle("pokemon/" + id)
@@ -60,17 +60,14 @@ export default function Home() {
     if (id > 1) {
       setQuerySingle("pokemon/" + String(id -1))
     }
-    
   }
 
-  // Fonction pour gérer le changement de sélection
   const handleSelectChange = (event : any) => {
     setSelectedValue(event.target.value)
     setSelectedValue2("")
     setQuerySeveral(event.target.value)
   };
 
-  // Fonction pour gérer le changement de sélection pour le deuxième type
   const handleSelectChangeType = (event : any) => {
     setSelectedValue2(event.target.value)
     if (querySeveral.substring(0,12) == "pokemon/type") {
@@ -78,6 +75,7 @@ export default function Home() {
       setQuerySeveral(newQuerySeveral + event.target.value)
     }
   };
+
 
   const cardsPokemon = dataPokemonSeveral.map((item,i) =>{
     return(
@@ -88,6 +86,14 @@ export default function Home() {
       />
     )
   })
+
+  const filteredItems = dataPokemonSeveral.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const cardsPokemonfiltered = filteredItems.map((item, i) => (
+    <Card key={i} item={item} onTakeID={handleTakeIDPokemon} />
+  ))
 
   return (
     <main className="flex items-center justify-center bg-black">
@@ -114,72 +120,82 @@ export default function Home() {
               nextPokemon = {handleNextPokemon}
               previousPokemon = {handlePreviousPokemon}
               /> 
-              : cardsPokemon }
+              : searchTerm != "" ? cardsPokemonfiltered : cardsPokemon }
           </div>
           <div className={"w-[35rem]  " + (showPokemonPage ? "" : "h-24")}>
             {showPokemonPage ? "" 
-            : <div className="px-2 flex justify-between text-[13px] text-center">
-                <div>
-                  <h2>Sélectionnez une génération :</h2>
-                  <select value={selectedValue} onChange={handleSelectChange}>
-                    <option value="pokemon">Tous les pokémons</option>
-                    <option value="pokemon/generation/1">Géneration 1</option>
-                    <option value="pokemon/generation/2">Géneration 2</option>
-                    <option value="pokemon/generation/3">Géneration 3</option>
-                    <option value="pokemon/generation/4">Géneration 4</option>
-                    <option value="pokemon/generation/5">Géneration 5</option>
-                    <option value="pokemon/generation/6">Géneration 6</option>
-                    <option value="pokemon/generation/7">Géneration 7</option>
-                    <option value="pokemon/generation/8">Géneration 8</option>
-                  </select>
+            : <div className="">
+                <div className="px-2 flex justify-between text-[13px] text-center">
+                  <div>
+                      <h2>Sélectionnez une génération :</h2>
+                      <select value={selectedValue} onChange={handleSelectChange}>
+                        <option value="pokemon">Tous les pokémons</option>
+                        <option value={pathGeneration + "1"}>Géneration 1</option>
+                        <option value={pathGeneration + "2"}>Géneration 2</option>
+                        <option value={pathGeneration + "3"}>Géneration 3</option>
+                        <option value={pathGeneration + "4"}>Géneration 4</option>
+                        <option value={pathGeneration + "5"}>Géneration 5</option>
+                        <option value={pathGeneration + "6"}>Géneration 6</option>
+                        <option value={pathGeneration + "7"}>Géneration 7</option>
+                        <option value={pathGeneration + "8"}>Géneration 8</option>
+                      </select>
+                    </div>
+                    <div>
+                      <h2>Sélectionnez un type :</h2>
+                      <select value={selectedValue} onChange={handleSelectChange}>
+                        <option value="pokemon">Tous les types</option>
+                        <option value={pathType + "Normal"}>Normal</option>
+                        <option value={pathType + "Combat"}>Combat</option>
+                        <option value={pathType + "Vol"}>Vol</option>
+                        <option value={pathType + "Poison"}>Poison</option>
+                        <option value={pathType + "Sol"}>Sol</option>
+                        <option value={pathType + "Roche"}>Roche</option>
+                        <option value={pathType + "Insecte"}>Insecte</option>
+                        <option value={pathType + "Spectre"}>Spectre</option>
+                        <option value={pathType + "Acier"}>Acier</option>
+                        <option value={pathType + "Feu"}>Feu</option>
+                        <option value={pathType + "Eau"}>Eau</option>
+                        <option value={pathType + "Plante"}>Plante</option>
+                        <option value={pathType + "Électrik"}>Électrik</option>
+                        <option value={pathType + "Psy"}>Psy</option>
+                        <option value={pathType + "Glace"}>Glace</option>
+                        <option value={pathType + "Dragon"}>Dragon</option>
+                        <option value={pathType + "Ténébres"}>Ténébres</option>
+                        <option value={pathType + "Fée"}>Fée</option>
+                      </select>
+                    </div>
+                    <div>
+                      <h2>Sélectionnez un second type :</h2>
+                      <select value={selectedValue2} onChange={handleSelectChangeType}>
+                        <option value=""></option>
+                        <option value="/Normal">Normal</option>
+                        <option value="/Combat">Combat</option>
+                        <option value="/Vol">Vol</option>
+                        <option value="/Poison">Poison</option>
+                        <option value="/Sol">Sol</option>
+                        <option value="/Roche">Roche</option>
+                        <option value="/Insecte">Insecte</option>
+                        <option value="/Spectre">Spectre</option>
+                        <option value="/Acier">Acier</option>
+                        <option value="/Feu">Feu</option>
+                        <option value="/Eau">Eau</option>
+                        <option value="/Plante">Plante</option>
+                        <option value="/Électrik">Électrik</option>
+                        <option value="/Psy">Psy</option>
+                        <option value="/Glace">Glace</option>
+                        <option value="/Dragon">Dragon</option>
+                        <option value="/Ténébres">Ténébres</option>
+                        <option value="/Fée">Fée</option>
+                      </select>
+                    </div>
                 </div>
-                <div>
-                  <h2>Sélectionnez un type :</h2>
-                  <select value={selectedValue} onChange={handleSelectChange}>
-                    <option value="pokemon">Tous les types</option>
-                    <option value="pokemon/type/Normal">Normal</option>
-                    <option value="pokemon/type/Combat">Combat</option>
-                    <option value="pokemon/type/Vol">Vol</option>
-                    <option value="pokemon/type/Poison">Poison</option>
-                    <option value="pokemon/type/Sol">Sol</option>
-                    <option value="pokemon/type/Roche">Roche</option>
-                    <option value="pokemon/type/Insecte">Insecte</option>
-                    <option value="pokemon/type/Spectre">Spectre</option>
-                    <option value="pokemon/type/Acier">Acier</option>
-                    <option value="pokemon/type/Feu">Feu</option>
-                    <option value="pokemon/type/Eau">Eau</option>
-                    <option value="pokemon/type/Plante">Plante</option>
-                    <option value="pokemon/type/Électrik">Électrik</option>
-                    <option value="pokemon/type/Psy">Psy</option>
-                    <option value="pokemon/type/Glace">Glace</option>
-                    <option value="pokemon/type/Dragon">Dragon</option>
-                    <option value="pokemon/type/Ténébres">Ténébres</option>
-                    <option value="pokemon/type/Fée">Fée</option>
-                  </select>
-                </div>
-                <div>
-                  <h2>Sélectionnez un second type :</h2>
-                  <select value={selectedValue2} onChange={handleSelectChangeType}>
-                    <option value=""></option>
-                    <option value="/Normal">Normal</option>
-                    <option value="/Combat">Combat</option>
-                    <option value="/Vol">Vol</option>
-                    <option value="/Poison">Poison</option>
-                    <option value="/Sol">Sol</option>
-                    <option value="/Roche">Roche</option>
-                    <option value="/Insecte">Insecte</option>
-                    <option value="/Spectre">Spectre</option>
-                    <option value="/Acier">Acier</option>
-                    <option value="/Feu">Feu</option>
-                    <option value="/Eau">Eau</option>
-                    <option value="/Plante">Plante</option>
-                    <option value="/Électrik">Électrik</option>
-                    <option value="/Psy">Psy</option>
-                    <option value="/Glace">Glace</option>
-                    <option value="/Dragon">Dragon</option>
-                    <option value="/Ténébres">Ténébres</option>
-                    <option value="/Fée">Fée</option>
-                  </select>
+                <div className="flex justify-center p-4">
+                <input
+                  type="text"
+                  placeholder="Rechercher par nom..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
                 </div>
               </div>}
           </div>
