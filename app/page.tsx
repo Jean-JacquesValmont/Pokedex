@@ -7,18 +7,18 @@ import Card from "./components/Card"
 import PokemonPage from "./components/PokemonPage"
 
 export default function Home() {
-  const [isOpenPokedex, setIsOpenPokedex] = useState(false)
-  const [clickOnPokemon, setclickOnPokemon] = useState(false)
-  const [showPokemonPage, setShowPokemonPage] = useState(false)
-  const [selectedValue, setSelectedValue] = useState('');
-  const [selectedValue2, setSelectedValue2] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [querySingle, setQuerySingle] = useState("pokemon/1")
-  const [querySeveral, setQuerySeveral] = useState("pokemon")
+  const [isOpenPokedex, setIsOpenPokedex] = useState<boolean>(false)
+  const [clickOnPokemon, setclickOnPokemon] = useState<boolean>(false)
+  const [showPokemonPage, setShowPokemonPage] = useState<boolean>(false)
+  const [selectedValue, setSelectedValue] = useState<string>('');
+  const [selectedValue2, setSelectedValue2] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [querySingle, setQuerySingle] = useState<string>("pokemon/1")
+  const [querySeveral, setQuerySeveral] = useState<string>("pokemon")
   const dataPokemonSingle = useFetch("https://pokebuildapi.fr/api/v1/" + querySingle, querySingle)
   const dataPokemonSeveral = useFetch("https://pokebuildapi.fr/api/v1/" + querySeveral, querySeveral)
-  const pathGeneration = "pokemon/generation/"
-  const pathType = "pokemon/type/"
+  const pathGeneration : string = "pokemon/generation/"
+  const pathType : string = "pokemon/type/"
 
   const openPokedex = () => {
     setIsOpenPokedex(true)
@@ -41,8 +41,8 @@ export default function Home() {
     setShowPokemonPage(false);
   }, [clickOnPokemon]);
 
-  const handleTakeIDPokemon = (id : string) => {
-    setQuerySingle("pokemon/" + id)
+  const handleTakeIDPokemon = (id : number) => {
+    setQuerySingle("pokemon/" + String(id))
     setclickOnPokemon(true)
   }
 
@@ -62,13 +62,14 @@ export default function Home() {
     }
   }
 
-  const handleSelectChange = (event : any) => {
+  const handleSelectChange = (event : {target : { value: string }}) => {
+    console.log(event)
     setSelectedValue(event.target.value)
     setSelectedValue2("")
     setQuerySeveral(event.target.value)
   };
 
-  const handleSelectChangeType = (event : any) => {
+  const handleSelectChangeType = (event : {target : { value: string }}) => {
     setSelectedValue2(event.target.value)
     if (querySeveral.substring(0,12) == "pokemon/type") {
       const newQuerySeveral = selectedValue.slice(0, 12) + "s" + selectedValue.slice(12, 21)

@@ -3,7 +3,34 @@ import { ImCross } from "react-icons/im";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 
-const PokemonPage = (props : any) => {
+type Stats = {
+    HP: number;
+    attack: number;
+    defense: number;
+    special_attack: number;
+    special_defense: number;
+    speed: number;
+  };
+
+type PokemonItem = {
+    id: number;
+    name: string;
+    image: string;
+    apiTypes: {name: string }[];
+    apiEvolutions: {name: string }[];
+    apiPreEvolution: {name: string};
+    stats: Stats;
+  };
+
+type PokemonPageProps = {
+    key: number | string
+    item: PokemonItem
+    onReturnDisplayCard: () => void
+    nextPokemon: (id: number) => void
+    previousPokemon: (id: number) => void
+}
+
+const PokemonPage = (props : PokemonPageProps) => {
 
     const handleReturnDisplayCard = () => {
         props.onReturnDisplayCard()
@@ -30,6 +57,7 @@ const PokemonPage = (props : any) => {
             <div className="flex flex-col text-[18px]">
                 <img className="w-52 h-52" src={props.item.image}/>
                 <h2> <span className="font-bold">Type:</span> {props.item.apiTypes[0]?.name} {props.item.apiTypes[1]?.name && ` / ${props.item.apiTypes[1]?.name}`}</h2>
+                <p><span className="font-bold">Evolution de:</span> {props.item.apiPreEvolution.name == "none" || props.item.apiPreEvolution.name == undefined ? "Aucun" : props.item.apiPreEvolution.name}</p>
                 <p><span className="font-bold">Evolue en:</span> {props.item.apiEvolutions[0]?.name == "none" || props.item.apiEvolutions[0]?.name == undefined ? "Evolution final" : props.item.apiEvolutions[0]?.name}</p>
             </div>
             <div className="">

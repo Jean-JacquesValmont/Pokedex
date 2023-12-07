@@ -1,8 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
+
+type PokemonType = {
+  name: string;
+  image: string
+};
+
+type Stats = {
+  HP: number;
+  attack: number;
+  defense: number;
+  speed: number;
+  special_attack: number;
+  special_defense: number;
+};
+
+type PokemonData = {
+  id: number;
+  name: string;
+  image: string;
+  apiTypes: PokemonType[]
+  apiEvolutions: {name: string }[]
+  apiPreEvolution: {name: string}
+  stats: Stats
+};
 
 const useFetch = (url : string, query : string) => {
 
-    const [dataFetch, setDataFetch] = useState([])
+    const [dataFetch, setDataFetch] = useState<PokemonData[]>([])
 
     useEffect(() => {
         

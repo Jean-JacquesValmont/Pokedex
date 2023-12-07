@@ -1,6 +1,18 @@
 import React from 'react'
 
-const Card = (props : any) => {
+type PokemonItem = {
+  id: number;
+  name: string;
+  image: string;
+};
+
+type CardProps = {
+  key: string | number
+  item: PokemonItem
+  onTakeID: (id: number) => void
+}
+
+const Card = (props : CardProps) => {
 
   const handleTakeID = () => {
     props.onTakeID(props.item.id)
